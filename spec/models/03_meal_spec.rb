@@ -4,8 +4,11 @@ describe Meal do
 	before(:each) do 
 		@meal = Meal.create(name: "Meal 1")
 		@food1 = Food.create(name: "Chicken Breast", serving_size: "4 oz", protein: 26, carbs: 0, fat: 2)
+		@food1.calculate_food_kcal
 		@food2 = Food.create(name: "Jasmine Rice", serving_size: "1/2 cup", protein: 2, carbs: 22, fat: 0)
+		@food2.calculate_food_kcal
 		@food3 = Food.create(name: "Avocado Oil", serving_size: "1 tbsp", protein: 0, carbs: 0, fat: 14)
+		@food3.calculate_food_kcal
 	end 
 
 	describe 'methods' do 
@@ -27,12 +30,12 @@ describe Meal do
 			@meal.calculate_macros
 			expect(@meal.protein).to eq(56)
 			expect(@meal.carbs).to eq(44)
-			expect(@meal.fat).to eq(16)
-			expect(@meal.kcal).to eq(544)
+			expect(@meal.fat).to eq(18)
+			expect(@meal.kcal).to eq(562)
 		end 
 
 		it 'can slug its name' do 
-			expect(@food.slug).to eq("meal-1")
+			expect(@meal.slug).to eq("meal-1")
 		end 
 
 		it 'can find a meal by its slug' do 
