@@ -30,5 +30,15 @@ describe Meal do
 			expect(@meal.fat).to eq(16)
 			expect(@meal.kcal).to eq(544)
 		end 
-	end 
+
+		it 'can slug its name' do 
+			expect(@food.slug).to eq("meal-1")
+		end 
+
+		it 'can find a meal by its slug' do 
+			expect(Meal.find_by_slug("meal-1")).to eq(@meal) 
+		end 
+
+	end
+
 end 
