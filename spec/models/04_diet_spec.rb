@@ -16,17 +16,20 @@ describe Diet do
 		@meal1.add_food(@food1, 2)
 		@meal1.add_food(@food2, 2)
 		@meal1.add_food(@food3, 1)
+		@meal1.calculate_macros
 		@meal1.save
 
 		@meal2.add_food(@food1, 1)
 		@meal2.add_food(@food2, 3)
 		@meal2.add_food(@food3, 1)
-		@meal1.save
+		@meal2.calculate_macros
+		@meal2.save
 
 		@meal3.add_food(@food1, 2)
 		@meal3.add_food(@food2, 1)
 		@meal3.add_food(@food3, 2)
-		@meal1.save
+		@meal3.calculate_macros
+		@meal3.save
 
 		@user = User.create(username: "jb", password: "jjj")
 		@diet = Diet.create(date: "4/17/18", user_id: @user.id)

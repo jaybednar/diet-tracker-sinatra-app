@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(version: 20180417183626) do
 
+  create_table "diet_meals", force: :cascade do |t|
+    t.integer  "meal_id"
+    t.integer  "diet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "diets", force: :cascade do |t|
     t.string   "date"
     t.integer  "protein"
@@ -40,13 +47,6 @@ ActiveRecord::Schema.define(version: 20180417183626) do
     t.integer  "kcal"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-  end
-
-  create_table "meal_diets", force: :cascade do |t|
-    t.integer  "meal_id"
-    t.integer  "diet_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "meals", force: :cascade do |t|
