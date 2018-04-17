@@ -29,5 +29,20 @@ describe Food do
 
 	end
 
+	describe 'methods' do 
+
+		it 'can calculate its calories per serving' do
+			@food.calculate_food_kcal
+			expect(@food.kcal).to eq(122)
+		end 
+
+		it 'can slug its name' do 
+			expect(@food.slug).to eq("chicken-breast")
+		end 
+
+		it 'can find a food by its slug' do 
+			expect(Food.find_by_slug("chicken-breast")).to eq(@food) 
+		end 
+	end 
 
 end  
