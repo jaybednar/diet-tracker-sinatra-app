@@ -5,3 +5,7 @@ if ActiveRecord::Migrator.needs_migration?
 end
 
 run ApplicationController
+use DietsController
+use MealsController
+use FoodsController
+use UsersController
