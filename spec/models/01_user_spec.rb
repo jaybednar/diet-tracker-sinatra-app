@@ -29,6 +29,11 @@ describe User do
 			@user = User.create(username: "jb")
 			expect(@user).to_not be_valid 
 		end 
+
+		it 'has a secure password' do 
+			expect(@user.authenticate("test")).to eq(false) 
+			expect(@user.authenticate("jjj")).to eq(@user)
+		end 
 	end 
 
 	describe "functions" do 
