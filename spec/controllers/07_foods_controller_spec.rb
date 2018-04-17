@@ -1,1 +1,0 @@
-07_foods_controller_spec.rb
