@@ -46,11 +46,11 @@ describe UsersController do
 	  	expect(page.body).to include("</form>")
 	 	end 
 	 	
-	 	it "sends a post request to '/login'"	do 
+	 	it "sends a post request to '/session'"	do 
 	 		fill_in 'username', with: 'jb'
 	 		fill_in 'password', with: 'jjj'
 	 		click_button 'login'
-	 		expect(page.current_path).to eq('/login')
+	 		expect(page.current_path).to eq('/session')
 	 	end 
 	end 
 

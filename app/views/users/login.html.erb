@@ -1,1 +1,13 @@
-login.html.erb
+<div>
+	<h1>Login</h1>
+
+
+	<form action="/session" method="post">
+		<label for="username">Username:</label>
+		<input type="text" name="user[username]" id="username">
+		<label for="password">Password:</label>
+		<input type="text" name="user[password]" id="password">
+		<input type="submit" name="login" id="login" value="Login">
+	</form>
+
+</div>

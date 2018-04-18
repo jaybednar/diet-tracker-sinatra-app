@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
    
   get "/session/new" do
-    erb :"/users/index.html"
+    erb :"/users/login.html"
   end
 
   # GET: /users/5
