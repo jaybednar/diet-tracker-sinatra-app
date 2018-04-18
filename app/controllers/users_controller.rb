@@ -2,12 +2,28 @@ class UsersController < ApplicationController
 
   # GET: /users/new
   get "/users/new" do
-    erb :"/users/new.html"
+    # binding.pry
+    if logged_in?
+      @user = User.find(session[:user_id])
+      redirect "/users/#{@user.id}"
+    else 
+      erb :"/users/new.html"
+    end 
   end
 
   # POST: /users
   post "/users" do
-    redirect "/users"
+    binding.pry
+    if logged_in?
+      @user = User.find(session[:user_id])
+      redirect "/users/#{@user.id}"
+    elsif !params[:user][:username].empty? && !params[:user][:password].empty?
+      @user = User.create(params[:user])
+      session[:user_id] = @user.id 
+      redirect "/users/#{@user.id}"
+    else 
+      redirect '/users/new'
+    end 
   end
 
    
@@ -17,6 +33,7 @@ class UsersController < ApplicationController
 
   # GET: /users/5
   get "/users/:id" do
+    @user = User.find(params[:id])
     erb :"/users/show.html"
   end
 
@@ -30,8 +47,18 @@ class UsersController < ApplicationController
     redirect "/users/:id"
   end
 
+  delete '/session' do 
+    session.clear
+  end 
+
   # DELETE: /users/5/delete
   delete "/users/:id/delete" do
     redirect "/users"
   end
+
+  get '/logout' do 
+    session.clear 
+    redirect to '/'
+  end 
+
 end
