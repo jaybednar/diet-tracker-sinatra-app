@@ -2,7 +2,7 @@ require_relative "../spec_helper"
 
 describe UsersController do 
 
-	describe 'GET /users/new' do 
+	describe 'signup' do 
 		before(:each) do 
 			visit '/users/new'
 		end 
@@ -28,7 +28,7 @@ describe UsersController do
 	 	end 
 	end 
 
-	describe 'GET /session/new' do 
+	describe 'login' do 
 		before(:each) do 
 			visit '/session/new' 
 		end 
@@ -54,7 +54,10 @@ describe UsersController do
 	 	end 
 	end 
 
-	describe 'GET users/show' do 
+	describe 'user homepage' do 
+		before(:each) do 
+			visit "users/#{current_user.id}" 
+		end
 
 		it "responds with a 200 status code" do
 	    expect(page.status_code).to eq(200)
@@ -80,6 +83,21 @@ describe UsersController do
 	  	expect(page).to have_css('input#logout')
 	  end 
 
+	end 
+
+	describe 'logout' do 
+		 before(:each) do 
+		   visit "users/#{current_user.id}"
+		 	 click_button 'logout'
+		 end 
+
+		 it 'clears session' do 
+		 		expect(session).to eq("{}")
+		 end 
+
+		 it 'redirects to homepage' do 
+		 		expect(page.current_path).to eq('/')
+		 end 
 	end 
 
 
