@@ -5,16 +5,23 @@
 
     <div class="content">
       <p>Welcome to the Diet Tracker App!</p>
+    
+
+		<br>
+   
+
+    	<h3>New To The Diet Tracker?</h3>
+	    <form action="/users/new" method="get">
+	    	<input type="submit" name="new_account" id="new_account" value="Create New Account">
+	    </form>
+
+	    <br>
+
+	    <h3>Already have an account?</h3>
+	    <form action="/session/new" method="get">
+	    	<input type="submit" name="login" id="login" value="Login">
+	    </form>
     </div>
-
-    <form action="/users/new" method="get">
-    	<input type="submit" name="new_account" id="new_account" value="Create New Account">
-    </form>
-
-    <form action="/session/new" method="get">
-    	<input type="submit" name="login" id="login" value="Login">
-    </form>
-
 
   </div>
 </div>
