@@ -2,7 +2,6 @@ class UsersController < ApplicationController
 
   # GET: /users/new
   get "/users/new" do
-    # binding.pry
     if logged_in?
       @user = User.find(session[:user_id])
       redirect "/users/#{@user.id}"
@@ -13,7 +12,6 @@ class UsersController < ApplicationController
 
   # POST: /users
   post "/users" do
-    binding.pry
     if logged_in?
       @user = User.find(session[:user_id])
       redirect "/users/#{@user.id}"
@@ -28,8 +26,30 @@ class UsersController < ApplicationController
 
    
   get "/session/new" do
-    erb :"/users/login.html"
+    if logged_in?
+      @user = User.find(session[:user_id])
+      redirect "/users/#{@user.id}"
+    else 
+      erb :"/users/login.html"
+    end 
   end
+
+  post '/session' do 
+    if logged_in?
+      @user = User.find(session[:user_id])
+      redirect "/users/#{@user.id}"
+    elsif !params[:user][:username].empty? && !params[:user][:password].empty?
+      @user = User.find_by(username: params[:user][:username])
+      if @user.authenticate(params[:user][:password])
+        session[:user_id] = @user.id 
+        redirect "/users/#{@user.id}"
+      else 
+        redirect to '/session/new'
+      end 
+    else 
+      redirect '/session/new'
+    end 
+  end 
 
   # GET: /users/5
   get "/users/:id" do
@@ -49,6 +69,7 @@ class UsersController < ApplicationController
 
   delete '/session' do 
     session.clear
+    redirect to '/'
   end 
 
   # DELETE: /users/5/delete
