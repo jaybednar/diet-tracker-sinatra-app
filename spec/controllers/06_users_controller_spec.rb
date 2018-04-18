@@ -2,9 +2,9 @@ require_relative "../spec_helper"
 
 describe UsersController do 
 
-	describe '/signup' do 
+	describe 'GET /users/new' do 
 		before(:each) do 
-			visit '/signup'
+			visit '/users/new'
 		end 
 
 		it "responds with a 200 status code" do
@@ -28,9 +28,9 @@ describe UsersController do
 	 	end 
 	end 
 
-	describe '/login' do 
+	describe 'GET /session/new' do 
 		before(:each) do 
-			visit '/login' 
+			visit '/session/new' 
 		end 
 
 		it "responds with a 200 status code" do
@@ -52,6 +52,35 @@ describe UsersController do
 	 		click_button 'login'
 	 		expect(page.current_path).to eq('/login')
 	 	end 
+	end 
+
+	describe 'GET users/show' do 
+
+		it "responds with a 200 status code" do
+	    expect(page.status_code).to eq(200)
+	  end
+
+	  it 'displays the username of the current user' do 
+	  	expect(page.body).to include("#{current_user.username}")
+	  end 
+
+	  it 'lists all of the current users diets' do 
+	  	expect(page.body).to include("#{current_user.diets.first.date}")
+	  end 
+
+	  it 'has a button to create a new diet' do 
+	  	expect(page).to have_css('input#new_diet')
+	  end 
+
+	  it 'has a button to add a new food' do 
+	 		 expect(page).to have_css('input#new_food')
+	 	end 
+
+	  it 'has a button to logout' do 
+	  	expect(page).to have_css('input#logout')
+	  end 
 
 	end 
+
+
 end 
