@@ -1,1 +1,30 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<div>
+	<h1>Welcome, <%=@user.username%></h1>
+
+
+	<form action='/diets/new' method="get">
+		<input type="submit" name="new_diet" id="new_diet" value="New Diet">
+	</form>
+
+	<form action='/foods/new' method="get">
+		<input type="submit" name="new_food" id="new_food" value="New Food">
+	</form>
+
+	<form action='/session' method="post">
+		<input type="hidden" name="_method" value="delete">
+		<input type="submit" name="logout" id="logout" value="Logout">
+	</form>
+
+	<br>
+
+	<h3>Your Diets:</h3>
+
+	<%@user.diets.each do |diet| %>
+
+		<h5><a href="/diets/<%=diet.id%>"><%=diet.date%></a></h5>
+
+	<%end%>
+
+
+
+</div>
