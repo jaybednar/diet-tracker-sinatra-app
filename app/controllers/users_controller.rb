@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
 
   # GET: /users
-  get "/users" do
+  get "/login" do
     erb :"/users/index.html"
   end
 
   # GET: /users/new
-  get "/users/new" do
+  get "/signup" do
     erb :"/users/new.html"
   end
 
