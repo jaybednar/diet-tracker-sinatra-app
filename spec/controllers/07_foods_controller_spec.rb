@@ -45,4 +45,20 @@ describe Foodscontroller do
 	 	end 
 	end 
 
+	describe '/foods' do 
+
+		it "responds with a 200 status code" do
+	    expect(page.status_code).to eq(200)
+	  end
+
+	  it 'lists out all foods in database' 
+	  	expect(page.body).to include("#{Food.first.name}")
+	  	expect(page.body).to include("#{Food.first.serving_size}")
+	  	expect(page.body).to include("#{Food.first.protein}")
+	  	expect(page.body).to include("#{Food.first.carbs}")
+	  	expect(page.body).to include("#{Food.first.fat}")
+	  end 
+
+	end 
+
 end 
