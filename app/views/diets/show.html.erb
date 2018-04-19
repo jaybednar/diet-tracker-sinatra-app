@@ -4,7 +4,7 @@
 
 <%@diet.meals.each do |meal| %>
 
-	<h3><a href="/meals/<%=meal.id%>/edit">Meal:<%=meal.name.upcase%></a></h3>
+	<h3><a href="/meals/<%=meal.id%>/edit">Meal:<%=meal.name.upcase%></a></h3> 
 		
 		<%meal.foods.uniq.each do |food| %>
 		
@@ -12,7 +12,14 @@
 			<br><br>
 		<%end%>
 
-<%end%>
+		<form action="/meals/<%=meal.id%>/delete" method="post">
+		<input type="hidden" name="_method"  value="delete">
+		<input type="hidden" name="diet_id" value="<%=@diet.id%>">
+		<input type="submit" name="delete" value="Delete Meal"> 
+	</form>
+	____________________________________________________
+	<%end%>
+ 
 
 <br>
 <br>

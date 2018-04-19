@@ -58,7 +58,11 @@ class MealsController < ApplicationController
   end
 
   # # DELETE: /meals/5/delete
-  # delete "/meals/:id/delete" do
-  #   redirect "/meals"
-  # end
+  delete "/meals/:id/delete" do
+    @meal =  Meal.find(params[:id])
+    @meal.delete
+    @diet = Diet.find(params[:diet_id])
+    @diet.save 
+    redirect "/diets/#{@diet.id}"
+  end
 end
