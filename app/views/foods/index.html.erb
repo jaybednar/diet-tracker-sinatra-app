@@ -2,13 +2,14 @@
 
 <h1>Foods List:</h1>
 
-<table>
+<table style="border: 1px solid black; width:100%;">
 	<tr>
-		<th>Serving Size</th>
-		<th>Protein</th>
-		<th>Carbs</th>
-		<th>Fat</th>
-		<th>Calories</th>
+		<th style="text-align: left;">Food</th>
+		<th style="text-align: left;">Serving Size</th>
+		<th style="text-align: left;">Protein</th>
+		<th style="text-align: left;">Carbs</th>
+		<th style="text-align: left;">Fat</th>
+		<th style="text-align: left;">Calories</th>
 	</tr>
 	<%@foods.each do |food| %>
 	<tr>
@@ -23,6 +24,13 @@
 	</tr>
 	<% end %> 
 </table>
+
+<br>
+<br>
+
+<form action="/users/<%=@user.id%>" method="get">
+	<input type="submit" id="submit" name="Homepage" value="My Account">
+</form>
 
 
 </div>

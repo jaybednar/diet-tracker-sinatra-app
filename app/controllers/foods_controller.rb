@@ -2,6 +2,7 @@ class FoodsController < ApplicationController
 
   # GET: /foods
   get "/foods" do
+    @user = current_user
     @foods = Food.all
     erb :"/foods/index.html"
   end
@@ -12,9 +13,12 @@ class FoodsController < ApplicationController
   end
 
   # # POST: /foods
-  # post "/foods" do
-  #   redirect "/foods"
-  # end
+  post "/foods" do
+    @food = Food.create(params[:food])
+    @food.calculate_food_kcal
+    @food.save
+    redirect "/foods"
+  end
 
   # # GET: /foods/5
   # get "/foods/:id" do
