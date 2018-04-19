@@ -55,6 +55,7 @@ class Diet < ActiveRecord::Base
 	private
 
     def default_values
+    	self.date = Date.today.strftime("%-m/%-d/%Y")
 	    self.protein ||= 0.0
 			self.carbs ||= 0.0
 			self.fat ||= 0.0

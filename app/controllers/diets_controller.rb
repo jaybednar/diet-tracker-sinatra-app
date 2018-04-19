@@ -7,7 +7,8 @@ class DietsController < ApplicationController
 
   # GET: /diets/new
   get "/diets/new" do
-    erb :"/diets/new.html"
+    @diet = Diet.create
+    redirect to "diets/#{@diet.id}"
   end
 
   # POST: /diets
@@ -17,6 +18,7 @@ class DietsController < ApplicationController
 
   # GET: /diets/5
   get "/diets/:id" do
+    @diet = Diet.find(params[:id])
     erb :"/diets/show.html"
   end
 
