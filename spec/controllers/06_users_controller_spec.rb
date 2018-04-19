@@ -20,11 +20,12 @@ describe UsersController do
 	  	expect(page.body).to include("</form>")
 	 	end 
 	 	
-	 	it "sends a post request to '/users'"	do 
+	 	it "redirects to '/users/:id' after creating user"	do 
 	 		fill_in 'username', with: 'jb'
 	 		fill_in 'password', with: 'jjj'
 	 		click_button 'create_account'
-	 		expect(page.current_path).to eq('/users')
+	 		@user = User.find_by(username: "jb")
+	 		expect(page.current_path).to eq("/users/#{@user.id}")
 	 	end 
 	end 
 
@@ -46,17 +47,25 @@ describe UsersController do
 	  	expect(page.body).to include("</form>")
 	 	end 
 	 	
-	 	it "sends a post request to '/session'"	do 
+	 	it "redirects to '/users/:id' after logging in"	do 
+	 		@user = User.create(username: "jb", password: "jjj")
 	 		fill_in 'username', with: 'jb'
 	 		fill_in 'password', with: 'jjj'
 	 		click_button 'login'
-	 		expect(page.current_path).to eq('/session')
+	 		expect(page.current_path).to eq("/users/#{@user.id}")
 	 	end 
 	end 
 
 	describe 'user homepage' do 
+		
+		# session[:user_id] = @user.id
 		before(:each) do 
-			visit "users/#{current_user.id}" 
+			@user = User.create(username: "jb", password: "jjj")
+			@diet = Diet.create(date: "4/18/18")
+	  	@diet.user = @user
+	  	@diet.save
+	  	@user.save
+			visit "users/#{@user.id}" 
 		end
 
 		it "responds with a 200 status code" do
@@ -64,11 +73,11 @@ describe UsersController do
 	  end
 
 	  it 'displays the username of the current user' do 
-	  	expect(page.body).to include("#{current_user.username}")
+	  	expect(page.body).to include("#{@user.username}")
 	  end 
 
 	  it 'lists all of the current users diets' do 
-	  	expect(page.body).to include("#{current_user.diets.first.date}")
+	  	expect(page.body).to include("#{@user.diets.first.date}")
 	  end 
 
 	  it 'has a button to create a new diet' do 
@@ -87,13 +96,14 @@ describe UsersController do
 
 	describe 'logout' do 
 		 before(:each) do 
-		   visit "users/#{current_user.id}"
+		 	@user = User.create(username: "jb", password: "jjj")
+		   visit "/users/#{@user.id}"
 		 	 click_button 'logout'
 		 end 
 
-		 it 'clears session' do 
-		 		expect(session).to eq("{}")
-		 end 
+		 # it 'clears session' do 
+		 # 		expect(session).to eq("{}")
+		 # end 
 
 		 it 'redirects to homepage' do 
 		 		expect(page.current_path).to eq('/')
