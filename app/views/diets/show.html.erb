@@ -12,7 +12,7 @@
 			<br><br>
 		<%end%>
 
-		<form action="/meals/<%=meal.id%>/delete" method="post">
+	<form action="/meals/<%=meal.id%>/delete" method="post">
 		<input type="hidden" name="_method"  value="delete">
 		<input type="hidden" name="diet_id" value="<%=@diet.id%>">
 		<input type="submit" name="delete" value="Delete Meal"> 

@@ -1,21 +1,19 @@
 class DietsController < ApplicationController
 
   # GET: /diets
-  get "/diets" do
-    erb :"/diets/index.html"
-  end
+  # get "/diets" do
+  #   erb :"/diets/index.html"
+  # end
 
   # GET: /diets/new
   get "/diets/new" do
-    if logged_in?
-      @diet = Diet.create
-      @diet.user = current_user
-      @diet.save
-      current_user.save 
-      redirect to "diets/#{@diet.id}"
-    else 
-      redirect to '/session/new'
-    end 
+    redirect_if_not_logged_in
+    
+    @diet = Diet.create
+    @diet.user = current_user
+    @diet.save
+    current_user.save 
+    redirect to "diets/#{@diet.id}"
   end
 
   # POST: /diets
@@ -25,13 +23,11 @@ class DietsController < ApplicationController
 
   # GET: /diets/5
   get "/diets/:id" do
-    if logged_in?
-      @foods = Food.all 
-      @diet = Diet.find(params[:id])
-      erb :"/diets/show.html"
-    else 
-      redirect to '/session/new'
-    end 
+    redirect_if_not_logged_in
+    
+    @foods = Food.all 
+    @diet = Diet.find(params[:id])
+    erb :"/diets/show.html"
   end
 
   # GET: /diets/5/edit
@@ -46,12 +42,16 @@ class DietsController < ApplicationController
 
   # DELETE: /diets/5/delete
   delete "/diets/:id/delete" do
+    redirect_if_not_logged_in
     @diet = Diet.find(params[:id])
     @user = current_user
-    if logged_in? && current_user == @diet.user
+
+    if current_user == @diet.user
       @diet.delete 
       @user.save 
+      redirect "/users/#{@user.id}" 
+    else 
+      redirect_if_current_user_is_not_object_user
     end 
-    redirect "/users/#{@user.id}"
   end
 end

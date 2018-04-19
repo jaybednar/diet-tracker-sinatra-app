@@ -6,7 +6,7 @@ class UsersController < ApplicationController
       @user = User.find(session[:user_id])
       redirect "/users/#{@user.id}"
     else 
-      erb :"/users/new.html"
+      erb :'users/new.html'
     end 
   end
 
@@ -26,12 +26,17 @@ class UsersController < ApplicationController
 
    
   get "/session/new" do
+    if params[:error] 
+      @error_message = params[:error]
+    end
+
     if logged_in?
       @user = User.find(session[:user_id])
       redirect "/users/#{@user.id}"
     else 
       erb :"/users/login.html"
     end 
+    
   end
 
   post '/session' do 
@@ -53,6 +58,12 @@ class UsersController < ApplicationController
 
   # GET: /users/5
   get "/users/:id" do
+    redirect_if_not_logged_in 
+
+    if params[:error]
+      @error_message = params[:error]
+    end 
+
     @user = User.find(params[:id])
     erb :"/users/show.html"
   end
@@ -68,6 +79,7 @@ class UsersController < ApplicationController
   # end
 
   delete '/session' do 
+    redirect_if_not_logged_in
     session.clear
     redirect to '/'
   end 
@@ -77,9 +89,9 @@ class UsersController < ApplicationController
   #   redirect "/users"
   # end
 
-  get '/logout' do 
-    session.clear 
-    redirect to '/'
-  end 
+  # get '/logout' do 
+  #   session.clear 
+  #   redirect to '/'
+  # end 
 
 end

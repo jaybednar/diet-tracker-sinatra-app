@@ -27,6 +27,16 @@ class ApplicationController < Sinatra::Base
   		User.find(session[:user_id])
   	end 
 
+    def redirect_if_not_logged_in
+      if !logged_in?
+        redirect "/session/new?error=You have to be logged in to do that"
+      end
+    end
+
+    def redirect_if_current_user_is_not_object_user
+      redirect "/users/#{current_user.id}?error=You may not edit another user's meals and diets"
+    end 
+
   end 
 
 end
