@@ -4,23 +4,13 @@
 
 <%@diet.meals.each do |meal| %>
 
-	<h3>  <a href="meals/<%=meal.slug%>/edit"></a> <%=meal.name%></h3>
-	<table>
-		<tr>
-			<th>Food</th>
-			<th>Serving Size</th>
-			<th>Number Of Servings</th>
-			<!-- <th>Food</th> -->
-		</tr>
+	<h3>  <a href="meals/<%=meal.slug%>/edit"></a> <%=meal.name.upcase%></h3>
+		
 		<%meal.foods.uniq.each do |food| %>
-		<tr>
-			<td><%=food.name%></td>
-			<td><%=food.serving_size%></td>
-			<td><%=meal.foods.select{|f| food == f}.count%></td>
-		</tr>
+		
+			<%=meal.foods.select{|f| food == f}.count%> x <%=food.name%> (<%=food.serving_size%>)
 			
 		<%end%>
-	</table>
 
 <%end%>
 
@@ -28,5 +18,44 @@
 <br>
 
 <p>Today's Totals: <strong>Protein:</strong> <%=@diet.protein%> <strong>Carbs:</strong> <%=@diet.carbs%> <strong>Fat:</strong> <%=@diet.fat%> <strong>Calories:</strong> <%=@diet.kcal%></p>
+
+<br>
+<br>
+
+<h2>Add Meal:</h2>
+
+<form action="/meals" method="post">
+	<label>Meal Name:</label>
+	<input type="text" name="meal[name]">
+
+
+<br>
+	<br> 
+
+	<!-- <h3>Select Food 1:</h3> -->
+<p>
+	<label for="food_1_select">Select Food:</label>
+	<select id = "food_1_select" name="foods[food_1][food_id]"> 
+		<option>--</option>
+		<% @foods.each do |food| %>
+	  	<option name="foods[food_1][food_id]" value="<%=food.id%>"> <%=food.serving_size%> <%=food.name%> / Pro: <%=food.protein%> g / Carb: <%=food.carbs%> g / Fat: <%=food.fat%> g</option> 
+	 <% end %>
+
+	</select>
+</p>
+
+<p>
+	<label for="food_1_servings">Number of Servings:</label>
+	<select id="food_1_servings" name="foods[food_1][food_servings]">
+		<option name="foods[food_1][food_servings]" value="1">1</option>
+		<option name="foods[food_1][food_servings]" value="2">2</option>
+		<option name="foods[food_1][food_servings]" value="3">3</option>
+		<option name="foods[food_1][food_servings]" value="4">4</option>
+		<option name="foods[food_1][food_servings]" value="5">5</option>
+	</select>
+</p>
+<input type="hidden" name="diet_id" value="<%=@diet.id%>">
+<input type="submit" name="submit">
+</form>
 
 </div>

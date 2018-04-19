@@ -16,11 +16,13 @@ class MealsController < ApplicationController
 
     params[:foods].each do |food_num, food_hash|
       food = Food.find(food_hash[:food_id])
-      @meal.add_food(food, food_hash[:food_servings])
+      @meal.add_food(food, food_hash[:food_servings].to_i)
     end 
 
     @meal.calculate_macros
     @diet = Diet.find(params[:diet_id])  #will need to add a hidden input to with name="diet_id" and value="<%=@diet.id%>"
+    @diet.add_meal(@meal)
+
     redirect to "/diets/#{@diet.id}"
   end
 

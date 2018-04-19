@@ -23,6 +23,7 @@ class DietsController < ApplicationController
   # GET: /diets/5
   get "/diets/:id" do
     if logged_in?
+      @foods = Food.all 
       @diet = Diet.find(params[:id])
       erb :"/diets/show.html"
     else 

@@ -9,6 +9,7 @@ class Diet < ActiveRecord::Base
 
  	def add_meal(meal)
  		self.meals << meal
+ 		self.save
  	end 
 
 	def calculate_macros
