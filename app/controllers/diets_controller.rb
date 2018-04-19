@@ -9,6 +9,9 @@ class DietsController < ApplicationController
   get "/diets/new" do
     if logged_in?
       @diet = Diet.create
+      @diet.user = current_user
+      @diet.save
+      current_user.save 
       redirect to "diets/#{@diet.id}"
     else 
       redirect to '/login'

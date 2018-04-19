@@ -17,7 +17,8 @@
 <br>
 <br>
 
-<p>Today's Totals: <strong>Protein:</strong> <%=@diet.protein%> <strong>Carbs:</strong> <%=@diet.carbs%> <strong>Fat:</strong> <%=@diet.fat%> <strong>Calories:</strong> <%=@diet.kcal%></p>
+<p>Today's Totals: <br>
+	<strong>Protein:</strong> <%=@diet.protein%> <br>  <strong>Carbs:</strong> <%=@diet.carbs%>  <br> <strong>Fat:</strong> <%=@diet.fat%>  <br> <strong>Calories:</strong> <%=@diet.kcal%></p>
 
 <br>
 <br>
@@ -121,6 +122,12 @@
 
 <form action="/diets/<%=@diet.id%>/edit" method="post">
 	<input type="submit" name="Edit Diet" value="Edit Diet">
+</form>
+
+<br> 
+
+<form action="/users/<%=@diet.user.id%>" method="get">
+	<input type="submit" id="submit" name="Homepage" value="My Account">
 </form>
 
 <br> 
