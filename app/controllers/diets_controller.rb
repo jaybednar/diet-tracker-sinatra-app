@@ -14,14 +14,14 @@ class DietsController < ApplicationController
       current_user.save 
       redirect to "diets/#{@diet.id}"
     else 
-      redirect to '/login'
+      redirect to '/session/new'
     end 
   end
 
   # POST: /diets
-  post "/diets" do
-    redirect "/diets"
-  end
+  # post "/diets" do
+  #   redirect "/diets"
+  # end
 
   # GET: /diets/5
   get "/diets/:id" do
@@ -30,22 +30,28 @@ class DietsController < ApplicationController
       @diet = Diet.find(params[:id])
       erb :"/diets/show.html"
     else 
-      redirect to '/login'
+      redirect to '/session/new'
     end 
   end
 
   # GET: /diets/5/edit
-  get "/diets/:id/edit" do
-    erb :"/diets/edit.html"
-  end
+  # get "/diets/:id/edit" do
+  #   erb :"/diets/edit.html"
+  # end
 
-  # PATCH: /diets/5
-  patch "/diets/:id" do
-    redirect "/diets/:id"
-  end
+  # # PATCH: /diets/5
+  # patch "/diets/:id" do
+  #   redirect "/diets/:id"
+  # end
 
   # DELETE: /diets/5/delete
   delete "/diets/:id/delete" do
-    redirect "/diets"
+    @diet = Diet.find(params[:id])
+    @user = current_user
+    if logged_in? && current_user == @diet.user
+      @diet.delete 
+      @user.save 
+    end 
+    redirect "/users/#{@user.id}"
   end
 end

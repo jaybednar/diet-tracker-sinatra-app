@@ -24,8 +24,13 @@
 <br>
 <br>
 
-<p>Today's Totals: <br>
-	<strong>Protein:</strong> <%=@diet.protein%> <br>  <strong>Carbs:</strong> <%=@diet.carbs%>  <br> <strong>Fat:</strong> <%=@diet.fat%>  <br> <strong>Calories:</strong> <%=@diet.kcal%></p>
+<ul>
+	<li><strong>Today's Totals: </strong></li><br>
+	<li><strong>Protein:</strong> <%=@diet.protein%>  </li>
+	<li><strong>Carbs:</strong> <%=@diet.carbs%>  </li>
+	<li><strong>Fat:</strong> <%=@diet.fat%>  </li>
+	<li><strong>Calories:</strong> <%=@diet.kcal%></li>
+</ul>
 
 <br>
 <br>
@@ -39,7 +44,7 @@
 
 <h2>Add Meal:</h2>
 
-<form action="/meals" method="post">
+<form action="/meals" method="post" style="border-bottom: 2px solid rgb(197, 197, 197)">
 	<label>Meal Name:</label>
 	<input type="text" name="meal[name]">
 
@@ -127,15 +132,22 @@
 </p>
 
 	<input type="hidden" name="diet_id" value="<%=@diet.id%>">
-	<input type="submit" name="submit" value="Add Meal">
+	<input type="submit" name="submit" value="Add Meal" style="margin-bottom: 10px;">
+
+<br>
 </form>
 
 <br>
-<br>
+
+<form action='/foods/new' method="get">
+		<input type="submit" name="new_food" id="new_food" value="Add New Food">
+</form>
+
 <br>
 
-<form action="/diets/<%=@diet.id%>/edit" method="post">
-	<input type="submit" name="Edit Diet" value="Edit Diet">
+<form action="/diets/<%=@diet.id%>/delete" method="post">
+	<input type="hidden" name="_method" value="delete">
+	<input type="submit" name="Delete Diet" value="Delete Diet">
 </form>
 
 <br> 

@@ -1,14 +1,22 @@
 <div>
 	<h1>Welcome, <%=@user.username%></h1>
 
+	<br>
+	<br>
 
 	<form action='/diets/new' method="get">
 		<input type="submit" name="new_diet" id="new_diet" value="New Diet">
 	</form>
 
+	<br>
+	<br>
+
 	<form action='/foods/new' method="get">
 		<input type="submit" name="new_food" id="new_food" value="New Food">
 	</form>
+
+	<br>
+	<br>
 
 	<form action='/session' method="post">
 		<input type="hidden" name="_method" value="delete">
