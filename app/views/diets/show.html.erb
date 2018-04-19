@@ -1,1 +1,32 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<div>
+
+<h1><%=@diet.date%></h1>
+
+<%@diet.meals.each do |meal| %>
+
+	<h3>  <a href="meals/<%=meal.slug%>/edit"></a> <%=meal.name%></h3>
+	<table>
+		<tr>
+			<th>Food</th>
+			<th>Serving Size</th>
+			<th>Number Of Servings</th>
+			<!-- <th>Food</th> -->
+		</tr>
+		<%meal.foods.uniq.each do |food| %>
+		<tr>
+			<td><%=food.name%></td>
+			<td><%=food.serving_size%></td>
+			<td><%=meal.foods.select{|f| food == f}.count%></td>
+		</tr>
+			
+		<%end%>
+	</table>
+
+<%end%>
+
+<br>
+<br>
+
+<p>Today's Totals: <strong>Protein:</strong> <%=@diet.protein%> <strong>Carbs:</strong> <%=@diet.carbs%> <strong>Fat:</strong> <%=@diet.fat%> <strong>Calories:</strong> <%=@diet.kcal%></p>
+
+</div>

@@ -7,8 +7,12 @@ class DietsController < ApplicationController
 
   # GET: /diets/new
   get "/diets/new" do
-    @diet = Diet.create
-    redirect to "diets/#{@diet.id}"
+    if logged_in?
+      @diet = Diet.create
+      redirect to "diets/#{@diet.id}"
+    else 
+      redirect to '/login'
+    end 
   end
 
   # POST: /diets
@@ -18,8 +22,12 @@ class DietsController < ApplicationController
 
   # GET: /diets/5
   get "/diets/:id" do
-    @diet = Diet.find(params[:id])
-    erb :"/diets/show.html"
+    if logged_in?
+      @diet = Diet.find(params[:id])
+      erb :"/diets/show.html"
+    else 
+      redirect to '/login'
+    end 
   end
 
   # GET: /diets/5/edit
