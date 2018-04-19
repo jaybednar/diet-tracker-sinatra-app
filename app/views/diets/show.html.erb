@@ -4,7 +4,7 @@
 
 <%@diet.meals.each do |meal| %>
 
-	<h3>  <a href="meals/<%=meal.id%>/edit"></a>Meal:<%=meal.name.upcase%></h3>
+	<h3><a href="/meals/<%=meal.id%>/edit">Meal:<%=meal.name.upcase%></a></h3>
 		
 		<%meal.foods.uniq.each do |food| %>
 		
@@ -19,6 +19,13 @@
 
 <p>Today's Totals: <br>
 	<strong>Protein:</strong> <%=@diet.protein%> <br>  <strong>Carbs:</strong> <%=@diet.carbs%>  <br> <strong>Fat:</strong> <%=@diet.fat%>  <br> <strong>Calories:</strong> <%=@diet.kcal%></p>
+
+<br>
+<br>
+
+<figure>
+  <figcaption>*** To edit a meal, click the meal name ***</figcaption>
+</figure>
 
 <br>
 <br>

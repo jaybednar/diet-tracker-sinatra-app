@@ -6,7 +6,7 @@ class CreateMeals < ActiveRecord::Migration
       t.integer :carbs
       t.integer :fat
       t.integer :kcal
-
+      t.integer :diet_id
       t.timestamps null: false
     end
   end

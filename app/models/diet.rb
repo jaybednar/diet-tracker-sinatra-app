@@ -2,13 +2,13 @@ class Diet < ActiveRecord::Base
 
 	belongs_to :user 
 	
-	has_many :diet_meals 
-	has_many :meals, through: :diet_meals 
-
+	has_many :meals 
+	
 	after_initialize :default_values
 
  	def add_meal(meal)
  		self.meals << meal
+ 		meal.diet = self
  		self.add_meal_kcal(meal)
  		self.save
  	end 

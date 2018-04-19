@@ -1,7 +1,6 @@
 class Meal < ActiveRecord::Base
 
-	has_many :meal_diets 
-	has_many :diets, through: :meal_diets
+	belongs_to :diet
 
 	has_many :food_meals 
 	has_many :foods, through: :food_meals
@@ -14,6 +13,15 @@ class Meal < ActiveRecord::Base
 			self.foods << food 
 		end 
 		self.save 
+	end 
+
+	def clear_meal
+		self.foods = []
+		self.protein = 0.0
+		self.carbs = 0.0
+		self.fat = 0.0
+		self.kcal = 0.0
+		self.save
 	end 
 
 	def calculate_macros
