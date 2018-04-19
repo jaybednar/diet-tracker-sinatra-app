@@ -1,6 +1,6 @@
 require_relative "../spec_helper"
 
-describe Foodscontroller do 
+describe FoodsController do 
 
 	describe '/foods/new' do 
 		before(:each) do 
@@ -46,12 +46,22 @@ describe Foodscontroller do
 	end 
 
 	describe '/foods' do 
+		before(:each) do 
+			@food1 = Food.create(name: "Chicken Breast", serving_size: "4 oz", protein: 26, carbs: 0, fat: 2)
+			@food1.calculate_food_kcal
+			@food2 = Food.create(name: "Jasmine Rice", serving_size: "1/2 cup", protein: 2, carbs: 22, fat: 0)
+			@food2.calculate_food_kcal
+			@food3 = Food.create(name: "Avocado Oil", serving_size: "1 tbsp", protein: 0, carbs: 0, fat: 14)
+			@food3.calculate_food_kcal
+			visit '/foods'
+		end 
 
 		it "responds with a 200 status code" do
+
 	    expect(page.status_code).to eq(200)
 	  end
 
-	  it 'lists out all foods in database' 
+	  it 'lists out all foods in database' do 
 	  	expect(page.body).to include("#{Food.first.name}")
 	  	expect(page.body).to include("#{Food.first.serving_size}")
 	  	expect(page.body).to include("#{Food.first.protein}")

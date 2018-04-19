@@ -1,1 +1,34 @@
-<h1>Insert the form to create a new instance of your model.</h1>
+<div>
+
+<h1>Add New Food</h1>
+
+<form action="/foods" method="post">
+	<p>
+		<label for="name">Food Name:</label>
+		<input type="text" name="food[name]" id="name" required>
+	</p>
+
+	<p>
+		<label for="serving_size">Serving Size:</label>
+		<input type="text" name="food[serving_size]" id="serving_size" required>
+	</p>
+
+	<p>
+		<label for="protein">Protein:</label>
+		<input type="text" name="food[protein]" id="protein" required>
+	</p>
+
+	<p>
+		<label for="carbs">Carbs:</label>
+		<input type="text" name="food[carbs]" id="carbs" required>
+	</p>
+
+	<p>
+		<label for="fat">Serving Size:</label>
+		<input type="text" name="food[fat]" id="fat" required>
+	</p>
+
+	<input type="submit" name="add_food" id="add_food" value="Add Food">
+</form>
+
+</div>
