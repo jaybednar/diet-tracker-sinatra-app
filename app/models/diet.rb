@@ -9,8 +9,16 @@ class Diet < ActiveRecord::Base
 
  	def add_meal(meal)
  		self.meals << meal
+ 		self.add_meal_kcal(meal)
  		self.save
  	end 
+
+ 	def add_meal_kcal(meal)
+ 		self.protein += meal.protein
+ 		self.carbs += meal.carbs
+ 		self.fat += meal.fat
+ 		self.kcal += meal.kcal
+ 	end
 
 	def calculate_macros
 		self.diet_protein

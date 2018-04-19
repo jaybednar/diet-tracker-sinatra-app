@@ -15,8 +15,10 @@ class MealsController < ApplicationController
     @meal = Meal.create(name: params[:meal][:name])
 
     params[:foods].each do |food_num, food_hash|
-      food = Food.find(food_hash[:food_id])
-      @meal.add_food(food, food_hash[:food_servings].to_i)
+      if food_hash[:food_id] != "--"
+        food = Food.find(food_hash[:food_id])
+        @meal.add_food(food, food_hash[:food_servings].to_i)
+      end 
     end 
 
     @meal.calculate_macros
