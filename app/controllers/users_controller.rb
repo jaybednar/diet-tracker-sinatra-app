@@ -1,72 +1,58 @@
 class UsersController < ApplicationController
 
-  # GET: /users/new
+##### CREATE USER #####
+
   get "/users/new" do
-    if logged_in?
-      @user = User.find(session[:user_id])
-      redirect "/users/#{@user.id}"
-    else 
-      erb :'users/new.html'
-    end 
+    redirect_if_logged_in
+    determine_error_message
+    erb :'users/new.html'
   end
 
-  # POST: /users
+
   post "/users" do
-    if logged_in?
-      @user = User.find(session[:user_id])
-      redirect "/users/#{@user.id}"
-    elsif !params[:user][:username].empty? && !params[:user][:password].empty?
+    if !params[:user][:username].empty? && !params[:user][:password].empty?
       @user = User.create(params[:user])
       session[:user_id] = @user.id 
       redirect "/users/#{@user.id}"
     else 
-      redirect '/users/new'
+      redirect '/users/new?error=You must fill out all fields'
     end 
   end
 
-   
-  get "/session/new" do
-    if params[:error] 
-      @error_message = params[:error]
-    end
+##### LOGIN USER #####
 
-    if logged_in?
-      @user = User.find(session[:user_id])
-      redirect "/users/#{@user.id}"
-    else 
-      erb :"/users/login.html"
-    end 
-    
+  get "/session/new" do
+    redirect_if_logged_in
+    determine_error_message
+    erb :"/users/login.html"
   end
 
   post '/session' do 
-    if logged_in?
-      @user = User.find(session[:user_id])
-      redirect "/users/#{@user.id}"
-    elsif !params[:user][:username].empty? && !params[:user][:password].empty?
+    if !params[:user][:username].empty? && !params[:user][:password].empty?
       @user = User.find_by(username: params[:user][:username])
-      if @user.authenticate(params[:user][:password])
+      if @user && @user.authenticate(params[:user][:password])
         session[:user_id] = @user.id 
         redirect "/users/#{@user.id}"
       else 
-        redirect to '/session/new'
+        redirect to '/session/new?error=Username and Password do not match'
       end 
     else 
-      redirect '/session/new'
+      redirect '/session/new?error=You must fill out all fields'
     end 
   end 
 
-  # GET: /users/5
+
+##### USER SHOW PAGE #####
+
   get "/users/:id" do
     redirect_if_not_logged_in 
-
-    if params[:error]
-      @error_message = params[:error]
-    end 
-
+    determine_error_message
     @user = User.find(params[:id])
     erb :"/users/show.html"
   end
+
+
+##### EDIT USER (USERNAME/PASSWORD)
 
   # GET: /users/5/edit
   # get "/users/:id/edit" do
@@ -78,20 +64,21 @@ class UsersController < ApplicationController
   #   redirect "/users/:id"
   # end
 
+
+##### LOGOUT USER #####
+
   delete '/session' do 
     redirect_if_not_logged_in
     session.clear
     redirect to '/'
   end 
 
+
+##### DELETE USER #####
+
   # DELETE: /users/5/delete
   # delete "/users/:id/delete" do
   #   redirect "/users"
   # end
-
-  # get '/logout' do 
-  #   session.clear 
-  #   redirect to '/'
-  # end 
 
 end

@@ -2,7 +2,7 @@ require_relative "../spec_helper"
 
 describe DietsController do 
 
-	describe '/diets/:slug' do 
+	describe '/diets/:id' do 
 		before(:each) do 
 			visit '/diets/new' 
 		end 
@@ -31,3 +31,4 @@ describe DietsController do
 	  	expect(page).to have_css('input#user_homepage')
 	  end 
 	end 
+end 
