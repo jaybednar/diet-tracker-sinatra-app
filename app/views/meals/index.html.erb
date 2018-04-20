@@ -1,1 +1,15 @@
-<h1>This is the Model's index page.</h1>
+<h1>Meal Ideas</h1>
+
+
+<%@meals.each do |meal| %>
+
+	<h3><%=meal.name%></h3>
+
+		<%meal.foods.uniq.each do |food| %>
+		
+			<%=meal.foods.select{|f| food == f}.count%> x <%=food.name%> (<%=food.serving_size%>)
+			<br>
+
+		<%end%>
+		<strong>Protein: </strong><%=meal.protein%>, <strong>Carbs: </strong><%=meal.carbs%>, <strong>Fat: </strong><%=meal.fat%>, <strong>Calories: </strong><%=meal.kcal%>
+<%end%>

@@ -1,9 +1,11 @@
 class MealsController < ApplicationController
 
   # GET: /meals
-  # get "/meals" do
-  #   erb :"/meals/index.html"
-  # end
+  get "/meals" do
+    @user = current_user
+    @meals = Meal.all 
+    erb :"/meals/index.html"
+  end
 
   # GET: /meals/new
   # get "/meals/new" do
