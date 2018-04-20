@@ -4,6 +4,7 @@ describe DietsController do
 
 	describe '/diets/:id' do 
 		before(:each) do 
+			@diet = Diet.create
 			visit '/diets/new' 
 		end 
 

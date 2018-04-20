@@ -10,6 +10,9 @@ class UsersController < ApplicationController
 
 
   post "/users" do
+    if @user = User.find_by(username: params[:user][:username])
+      redirect to "/users/new?error=This username is not available"
+    end 
     if !params[:user][:username].empty? && !params[:user][:password].empty?
       @user = User.create(params[:user])
       session[:user_id] = @user.id 
@@ -21,23 +24,23 @@ class UsersController < ApplicationController
 
 ##### LOGIN USER #####
 
-  get "/session/new" do
+  get "/login" do
     redirect_if_logged_in
     determine_error_message
     erb :"/users/login.html"
   end
 
-  post '/session' do 
+  post '/login' do 
     if !params[:user][:username].empty? && !params[:user][:password].empty?
       @user = User.find_by(username: params[:user][:username])
       if @user && @user.authenticate(params[:user][:password])
         session[:user_id] = @user.id 
         redirect "/users/#{@user.id}"
       else 
-        redirect to '/session/new?error=Username and Password do not match'
+        redirect to '/login?error=Username and Password do not match'
       end 
     else 
-      redirect '/session/new?error=You must fill out all fields'
+      redirect '/login?error=You must fill out all fields'
     end 
   end 
 
@@ -54,20 +57,25 @@ class UsersController < ApplicationController
 
 ##### EDIT USER (USERNAME/PASSWORD)
 
-  # GET: /users/5/edit
-  # get "/users/:id/edit" do
-  #   erb :"/users/edit.html"
-  # end
 
-  # PATCH: /users/5
-  # patch "/users/:id" do
-  #   redirect "/users/:id"
-  # end
+  get "/users/:id/edit" do
+    redirect_if_not_logged_in
+    @user = User.find(params[:id])
+    redirect_if_current_user_is_not_object_user(current_user, @user)
+    erb :"/users/edit.html"
+  end
+
+
+  patch "/users/:id" do
+    @user = User.find(params[:id])
+    @user.update(params[:user])
+    redirect "/users/#{@user.id}"
+  end
 
 
 ##### LOGOUT USER #####
 
-  delete '/session' do 
+  get '/logout' do 
     redirect_if_not_logged_in
     session.clear
     redirect to '/'
