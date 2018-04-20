@@ -1,1 +1,36 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<h1>Edit or Delete Food:</h1>
+
+<form action="foods/<%=@food.id%>" method="post">
+	<p>
+		<label for="name">Food Name:</label>
+		<input type="text" name="food[name]" id="name" value="<%=@food.name%>" required>
+	</p>
+
+	<p>
+		<label for="serving_size">Serving Size:</label>
+		<input type="text" name="food[serving_size]" id="serving_size" value="<%=@food.serving_size%>" required>
+	</p>
+
+	<p>
+		<label for="protein">Protein:</label>
+		<input type="number" name="food[protein]" id="protein" value="<%=@food.protein%>" required>
+	</p>
+
+	<p>
+		<label for="carbs">Carbs:</label>
+		<input type="number" name="food[carbs]" id="carbs" value="<%=@food.carbs%>" required>
+	</p>
+
+	<p>
+		<label for="fat">Fat:</label>
+		<input type="number" name="food[fat]" id="fat" value="<%=@food.fat%>" required>
+	</p>
+
+	<input type="submit" name="add_food" id="add_food" value="Edit Food">
+	
+</form>
+
+<form>
+	
+	
+</form>

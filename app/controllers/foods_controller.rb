@@ -1,18 +1,20 @@
 class FoodsController < ApplicationController
 
-  # GET: /foods
+##### VIEW FOODS #####
+
   get "/foods" do
     @user = current_user
     @foods = Food.all
     erb :"/foods/index.html"
   end
 
-  # GET: /foods/new
+
+##### CREATE FOODS #####
+
   get "/foods/new" do
     erb :"/foods/new.html"
   end
 
-  # # POST: /foods
   post "/foods" do
     @food = Food.create(params[:food])
     @food.calculate_food_kcal

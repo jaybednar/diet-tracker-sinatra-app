@@ -1,17 +1,15 @@
 class MealsController < ApplicationController
 
-  # GET: /meals
+##### VIEW MEALS #####
+
   get "/meals" do
     @meals = Meal.all 
     erb :"/meals/index.html"
   end
+  
 
-  # GET: /meals/new
-  # get "/meals/new" do
-  #   erb
-  # end
+##### CREATE MEALS #####
 
-  # # POST: /meals
   post "/meals" do
     redirect_if_not_logged_in
 
@@ -32,12 +30,9 @@ class MealsController < ApplicationController
     redirect to "/diets/#{@diet.id}"
   end
 
-  # # GET: /meals/5
-  # get "/meals/:id" do
-  #   erb :"/meals/show.html"
-  # end
 
-  # # GET: /meals/5/edit
+##### EDIT MEALS #####
+
   get "/meals/:id/edit" do
     redirect_if_not_logged_in
 
@@ -48,7 +43,6 @@ class MealsController < ApplicationController
     erb :"/meals/edit.html"
   end
 
-  # # PATCH: /meals/5
   patch "/meals/:id" do
     @meal = Meal.find(params[:id])
     @meal.clear_meal
@@ -65,7 +59,9 @@ class MealsController < ApplicationController
     redirect "/diets/#{@meal.diet.id}"
   end
 
-  # # DELETE: /meals/5/delete
+
+##### DELETE MEALS #####
+
   delete "/meals/:id/delete" do
     redirect_if_not_logged_in
 

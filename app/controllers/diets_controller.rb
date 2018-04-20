@@ -1,11 +1,7 @@
 class DietsController < ApplicationController
 
-  # GET: /diets
-  # get "/diets" do
-  #   erb :"/diets/index.html"
-  # end
+##### CREATE DIETS #####
 
-  # GET: /diets/new
   get "/diets/new" do
     redirect_if_not_logged_in
     
@@ -16,12 +12,9 @@ class DietsController < ApplicationController
     redirect to "diets/#{@diet.id}"
   end
 
-  # POST: /diets
-  # post "/diets" do
-  #   redirect "/diets"
-  # end
 
-  # GET: /diets/5
+##### VIEW DIETS #####
+
   get "/diets/:id" do
     redirect_if_not_logged_in
     
@@ -30,17 +23,8 @@ class DietsController < ApplicationController
     erb :"/diets/show.html"
   end
 
-  # GET: /diets/5/edit
-  # get "/diets/:id/edit" do
-  #   erb :"/diets/edit.html"
-  # end
+##### DELETE DIETS #####
 
-  # # PATCH: /diets/5
-  # patch "/diets/:id" do
-  #   redirect "/diets/:id"
-  # end
-
-  # DELETE: /diets/5/delete
   delete "/diets/:id/delete" do
     redirect_if_not_logged_in
     @diet = Diet.find(params[:id])
