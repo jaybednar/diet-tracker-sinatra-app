@@ -11,9 +11,7 @@ class UsersController < ApplicationController
     redirect to "/users/#{current_user.id}/edit"
   end 
 
-  get '/account/delete' do 
-    redirect to "/users/#{current_user.id}/delete"
-  end 
+
 
 
 ##### CREATE USER #####
@@ -100,13 +98,23 @@ class UsersController < ApplicationController
 
 ##### DELETE USER #####
 
+ get '/account/delete' do 
+    redirect_if_not_logged_in
+    @user = current_user
+    erb :'users/delete.html'
+  end 
+
   # DELETE: /users/5/delete
-  get "/users/:id/delete" do
+  delete "/users/:id/delete" do
     redirect_if_not_logged_in
     @user = User.find(params[:id])
-    redirect_if_current_user_is_not_object_user(current_user, @user)
-    @user.delete
-    redirect "/"
+    if @user.authenticate(params[:password])
+      @user.delete
+      session.clear
+      redirect to "/?error=Your account has been deleted"
+    else 
+      redirect to "/users/#{current_user.id}?error=You may not delete another user's account"
+    end 
   end
 
 end

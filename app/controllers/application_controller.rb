@@ -10,6 +10,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
+    determine_error_message
     if logged_in?
       @user = current_user
       redirect to "/users/#{session[:user_id]}"

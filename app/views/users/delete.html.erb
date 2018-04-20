@@ -1,0 +1,11 @@
+<h1>Are you sure you want to Delete your Account?</h1>
+
+<h3>You cannot undo this action</h3>
+
+<form action='/users/<%=@user.id%>/delete' method="post">
+	<label>Enter Passord:</label>
+	<input type="password" name="password">
+	<input type="hidden" name="_method" value="delete">
+	<label>Yes I'm Sure:</label>
+	<input type="submit" name="delete" value="Delete Account">
+</form>
