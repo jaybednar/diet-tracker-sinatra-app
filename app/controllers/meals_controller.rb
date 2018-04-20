@@ -61,6 +61,7 @@ class MealsController < ApplicationController
     end 
     @meal.calculate_macros
     @meal.save
+    @meal.diet.recalculate_macros
     redirect "/diets/#{@meal.diet.id}"
   end
 
@@ -74,6 +75,7 @@ class MealsController < ApplicationController
     @meal.delete
     @diet = Diet.find(params[:diet_id])
     @diet.save 
+    @diet.recalculate_macros
     redirect "/diets/#{@diet.id}"
   end
 end

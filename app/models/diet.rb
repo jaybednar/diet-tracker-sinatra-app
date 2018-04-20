@@ -20,12 +20,25 @@ class Diet < ActiveRecord::Base
  		self.kcal += meal.kcal
  	end
 
+ 	def clear_macros
+ 		self.protein = 0.0
+		self.carbs = 0.0
+		self.fat = 0.0
+		self.kcal = 0.0
+		self.save
+	end 
+
 	def calculate_macros
 		self.diet_protein
 		self.diet_carbs
 		self.diet_fat
 		self.diet_kcal
 		self.save
+	end 
+
+	def recalculate_macros
+		self.clear_macros
+		self.calculate_macros
 	end 
 
 	def diet_protein

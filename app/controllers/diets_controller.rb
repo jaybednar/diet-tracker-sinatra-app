@@ -44,8 +44,8 @@ class DietsController < ApplicationController
   delete "/diets/:id/delete" do
     redirect_if_not_logged_in
     @diet = Diet.find(params[:id])
-
-    redirect_if_current_user_is_not_object_user(current_user, @diet.user)
+    @user = @diet.user
+    redirect_if_current_user_is_not_object_user(current_user, @user)
     
     @diet.delete 
     @user.save 
