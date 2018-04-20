@@ -28,6 +28,10 @@ class ApplicationController < Sinatra::Base
   		User.find(session[:user_id])
   	end 
 
+    def set_user
+      @user = current_user
+    end 
+
     def redirect_if_not_logged_in
       if !logged_in?
         redirect "/login?error=You must be logged in to do that"
@@ -52,6 +56,7 @@ class ApplicationController < Sinatra::Base
       end 
       @error_message
     end 
+
 
   end 
 

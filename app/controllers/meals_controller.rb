@@ -2,7 +2,6 @@ class MealsController < ApplicationController
 
   # GET: /meals
   get "/meals" do
-    @user = current_user
     @meals = Meal.all 
     erb :"/meals/index.html"
   end

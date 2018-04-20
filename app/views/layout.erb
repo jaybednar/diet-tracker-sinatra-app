@@ -15,10 +15,12 @@
   <div class="wrapper">
   <nav>
       <% if logged_in? %>
-         <a href="/users/<%=@user.id%>"><button> My Account </button></a> 
-        <a href="/logout"><button> Logout </button></a>
+         <a href="/users/diets"><button>-My Diets-</button></a> 
+        <a href="/logout"><button>-Logout-</button></a>
+        <a href="/meals"><button>-Meal Ideas-</button></a>
+        <a href="/foods"><button>-Foods List-</button></a>
         
-        <p>Welcome, <%=@user.username %></p>
+        
 
       <% else %>
         <a href="/users/new"><button> Sign Up </button></a>
@@ -39,8 +41,8 @@
     <footer class="branding">
       <small>&copy; 2018 <strong>DietTrackerSinatraApp</strong></small>
       <% if logged_in? %>
-        <a href="/users/<%=@user.id%>/edit"> <button> Edit Account Info </button> </a>
-        <a href="/users/$%=@user.id%>/delete"> <button> Delete Account </button> </a>
+        <a href='/account/edit'> <button>-Edit Account Info-</button> </a>
+        <a href='/account/delete'> <button>-Delete Account-</button> </a>
       <%end%>
     </footer>
   </div>
