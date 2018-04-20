@@ -11,9 +11,10 @@ class ApplicationController < Sinatra::Base
 
   get "/" do
     if logged_in?
+      @user = current_user
       redirect to "/users/#{session[:user_id]}"
     else  
-      erb :index
+      erb :'index'
     end 
   end
 
@@ -29,7 +30,7 @@ class ApplicationController < Sinatra::Base
 
     def redirect_if_not_logged_in
       if !logged_in?
-        redirect "/session/new?error=You have to be logged in to do that"
+        redirect "/login?error=You must be logged in to do that"
       end
     end
 
