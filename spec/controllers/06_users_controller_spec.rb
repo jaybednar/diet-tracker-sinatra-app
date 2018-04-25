@@ -31,7 +31,7 @@ describe UsersController do
 
 	describe 'login' do 
 		before(:each) do 
-			visit '/session/new' 
+			visit '/login' 
 		end 
 
 		it "responds with a 200 status code" do
@@ -65,7 +65,11 @@ describe UsersController do
 	  	@diet.user = @user
 	  	@diet.save
 	  	@user.save
-			visit "users/#{@user.id}" 
+	  	visit '/login'
+	  	fill_in 'username', with: 'jb'
+	 		fill_in 'password', with: 'jjj'
+	 		click_button 'login'
+			# visit "users/#{@user.id}" 
 		end
 
 		it "responds with a 200 status code" do
@@ -73,7 +77,7 @@ describe UsersController do
 	  end
 
 	  it 'displays the username of the current user' do 
-	  	expect(page.body).to include("#{@user.username}")
+	  	expect(page.body).to include(@user.username)
 	  end 
 
 	  it 'lists all of the current users diets' do 
@@ -81,31 +85,30 @@ describe UsersController do
 	  end 
 
 	  it 'has a button to create a new diet' do 
-	  	expect(page).to have_css('input#new_diet')
+	  	expect(page.body).to include('New Diet')
 	  end 
 
 	  it 'has a button to add a new food' do 
-	 		 expect(page).to have_css('input#new_food')
+	 		 expect(page.body).to include('Add New Food')
 	 	end 
-
-	  it 'has a button to logout' do 
-	  	expect(page).to have_css('input#logout')
-	  end 
 
 	end 
 
 	describe 'logout' do 
 		 before(:each) do 
 		 	@user = User.create(username: "jb", password: "jjj")
-		   visit "/users/#{@user.id}"
-		 	 click_button 'logout'
+		   visit '/login'
+	  	fill_in 'username', with: 'jb'
+	 		fill_in 'password', with: 'jjj'
+	 		click_button 'login'
+		 	 visit '/logout'
 		 end 
 
 		 # it 'clears session' do 
 		 # 		expect(session).to eq("{}")
 		 # end 
 
-		 it 'redirects to homepage' do 
+		 it 'redirects to the homepage' do 
 		 		expect(page.current_path).to eq('/')
 		 end 
 	end 

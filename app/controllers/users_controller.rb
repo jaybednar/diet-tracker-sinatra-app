@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
 
-##### LAYOUT REDIRECTS #####
+##### LAYOUT REDIRECTS FOR NAV BUTTONS #####
 
   get '/users/diets' do
     redirect to "/users/#{current_user.id}"
