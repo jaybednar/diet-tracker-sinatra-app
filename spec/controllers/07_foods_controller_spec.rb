@@ -4,6 +4,10 @@ describe FoodsController do
 
 	describe '/foods/new' do 
 		before(:each) do 
+			visit '/login'
+	  	fill_in 'username', with: 'jb'
+	 		fill_in 'password', with: 'jjj'
+	 		click_button 'login'
 			visit '/foods/new' 
 		end 
 
@@ -49,24 +53,36 @@ describe FoodsController do
 		before(:each) do 
 			@food1 = Food.create(name: "Chicken Breast", serving_size: "4 oz", protein: 26, carbs: 0, fat: 2)
 			@food1.calculate_food_kcal
+			@food1.save
 			@food2 = Food.create(name: "Jasmine Rice", serving_size: "1/2 cup", protein: 2, carbs: 22, fat: 0)
 			@food2.calculate_food_kcal
+			@food2.save
 			@food3 = Food.create(name: "Avocado Oil", serving_size: "1 tbsp", protein: 0, carbs: 0, fat: 14)
 			@food3.calculate_food_kcal
-			visit '/foods'
+			@food3.save
+			
 		end 
 
 		it "responds with a 200 status code" do
-
+			visit '/login'
+	  	fill_in 'username', with: 'jb'
+	 		fill_in 'password', with: 'jjj'
+	 		click_button 'login'
+			visit '/foods'
 	    expect(page.status_code).to eq(200)
 	  end
 
 	  it 'lists out all foods in database' do 
-	  	expect(page.body).to include("#{Food.first.name}")
-	  	expect(page.body).to include("#{Food.first.serving_size}")
-	  	expect(page.body).to include("#{Food.first.protein}")
-	  	expect(page.body).to include("#{Food.first.carbs}")
-	  	expect(page.body).to include("#{Food.first.fat}")
+	  	visit '/login'
+	  	fill_in 'username', with: 'jb'
+	 		fill_in 'password', with: 'jjj'
+	 		click_button 'login'
+			visit '/foods'
+	  	expect(page.body).to include(Food.first.name)
+	  	expect(page.body).to include(Food.first.serving_size)
+	  	expect(page.body).to include(Food.first.protein.to_s)
+	  	expect(page.body).to include(Food.first.carbs.to_s)
+	  	expect(page.body).to include(Food.first.fat.to_s)
 	  end 
 
 	end 

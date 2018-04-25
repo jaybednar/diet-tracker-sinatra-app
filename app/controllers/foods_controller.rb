@@ -3,7 +3,7 @@ class FoodsController < ApplicationController
 ##### VIEW FOODS #####
 
   get "/foods" do
-    @user = current_user
+    redirect_if_not_logged_in
     @foods = Food.all
     erb :"/foods/index.html"
   end
@@ -12,6 +12,7 @@ class FoodsController < ApplicationController
 ##### CREATE FOODS #####
 
   get "/foods/new" do
+    redirect_if_not_logged_in
     erb :"/foods/new.html"
   end
 
