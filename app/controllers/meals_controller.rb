@@ -3,6 +3,7 @@ class MealsController < ApplicationController
 ##### VIEW MEALS #####
 
   get "/meals" do
+    redirect_if_not_logged_in
     @meals = Meal.all 
     erb :"/meals/index.html"
   end
