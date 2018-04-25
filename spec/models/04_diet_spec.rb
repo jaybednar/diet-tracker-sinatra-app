@@ -32,13 +32,13 @@ describe Diet do
 		@meal3.save
 
 		@user = User.create(username: "jb", password: "jjj")
-		@diet = Diet.create(date: "4/17/18", user_id: @user.id)
+		@diet = Diet.create(user_id: @user.id)
 	end 
 
 	describe 'attributes' do 
 
 		it 'has a date' do 
-			expect(@diet.date).to eq("4/17/18")
+			expect(@diet.date).to eq(Date.today.strftime("%-m/%-d/%Y"))
 		end 
 
 		it 'belongs to a user' do 
@@ -58,7 +58,6 @@ describe Diet do
 			@diet.add_meal(@meal1)
 			@diet.add_meal(@meal2)
 			@diet.add_meal(@meal3)
-			@diet.calculate_macros
 			expect(@diet.protein).to eq(142)
 			expect(@diet.carbs).to eq(132)
 			expect(@diet.fat).to eq(66)
