@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
   get "/" do
     determine_error_message
     if logged_in?
-      @user = current_user
+      # @user = current_user
       redirect to "/users/#{session[:user_id]}"
     else  
       erb :'index'
@@ -26,11 +26,11 @@ class ApplicationController < Sinatra::Base
   	end 
 
   	def current_user 
-  		User.find(session[:user_id])
+  		@user ||= User.find(session[:user_id])
   	end 
 
     def set_user
-      @user = current_user
+      @user = redirect_if_current_user_is_not_object_user
     end 
 
     def redirect_if_not_logged_in

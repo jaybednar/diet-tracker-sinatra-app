@@ -7,6 +7,10 @@ class Meal < ActiveRecord::Base
 
 	after_initialize :default_values
 
+	def unique_foods_list
+		self.foods.uniq 
+	end 
+
 
 	def add_food(food, servings = 1)
 		servings.times do 

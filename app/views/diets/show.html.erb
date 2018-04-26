@@ -6,7 +6,7 @@
 
 	<h3><a href="/meals/<%=meal.id%>/edit">Meal:<%=meal.name.upcase%></a></h3> 
 		
-		<%meal.foods.uniq.each do |food| %>
+		<%meal.unique_foods_list.each do |food| %>
 		
 			<%=meal.foods.select{|f| food == f}.count%> x <%=food.name%> (<%=food.serving_size%>)
 			<br><br>
